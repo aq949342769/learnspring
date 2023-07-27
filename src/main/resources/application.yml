@@ -1,0 +1,9 @@
+spring:
+  redis:
+    url: 127.0.0.1
+    port: 6379
+  datasource:
+    url: jdbc:mysql://localhost:3306/xyd?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: root
+
