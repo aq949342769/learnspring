@@ -23,9 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean addOne(User user) {
+        save(user);
         mysave(user);
+        mysave2(user);
         LambdaQueryWrapper<User> w = Wrappers.lambdaQuery(User.class).eq(User::getName, "xyd");
         System.out.println("查出来了" + list(w));
         return true;
@@ -33,10 +34,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Transactional(rollbackFor = Exception.class)
     public void mysave(User user) {
-        save(user);
         user.setAge(19);
         save(user);
         LambdaQueryWrapper<User> w = Wrappers.lambdaQuery(User.class).eq(User::getName, "xyd");
-        System.out.println("子方法查出来了" + list(w));
+        System.out.println("子方法1查出来了" + list(w));
+    }
+    public void mysave2(User user) {
+        user.setAge(20);
+        save(user);
+        int a = 1 / 0;
+        LambdaQueryWrapper<User> w = Wrappers.lambdaQuery(User.class).eq(User::getName, "xyd");
+        System.out.println("子方法2查出来了" + list(w));
     }
 }
